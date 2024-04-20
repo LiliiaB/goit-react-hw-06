@@ -25,7 +25,7 @@ export const ContactForm = () => {
   const handleSubmit = (values, actions) => {
     const id = nanoid();
     dispatch(addContact({ id, ...values }));
-    // onAdd({ id, ...values });
+
     actions.resetForm();
   };
   return (
