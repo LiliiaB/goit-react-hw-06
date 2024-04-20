@@ -3,6 +3,8 @@ import { useId } from "react";
 import * as Yup from "yup";
 import { nanoid } from "nanoid";
 import css from "./ContactForm.module.css";
+import { useDispatch } from "react-redux";
+import { addContact } from "../../redux/contactsSlice";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -15,13 +17,15 @@ const validationSchema = Yup.object().shape({
     .max(50, "Number must not exceed 50 characters"),
 });
 
-export const ContactForm = ({ onAdd }) => {
+export const ContactForm = () => {
+  const dispatch = useDispatch();
   const nameFieldId = useId();
   const numberFieldId = useId();
 
   const handleSubmit = (values, actions) => {
     const id = nanoid();
-    onAdd({ id, ...values });
+    dispatch(addContact({ id, ...values }));
+    // onAdd({ id, ...values });
     actions.resetForm();
   };
   return (
